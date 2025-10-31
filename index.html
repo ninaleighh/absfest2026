@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABSFest 2026 - Asheville Burlesque & Sideshow Festival</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Trirong:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bright-green: #3aaf22;
+            --dark-green: #21412b;
+            --light-lavender: #a267ef;
+            --medium-purple: #b870ef;
+            --deep-purple: #bfb88e;
+            --soft-lavender: #c89aef;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Trirong', serif;
+            color: var(--white);
+            background-color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            background-color: var(--bright-green);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(58, 175, 34, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--black) 0%, #1a0033 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(162, 103, 239, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-text h1 .highlight {
+            color: var(--bright-green);
+        }
+
+        .hero-text .festival-type {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--soft-lavender);
+            margin: 1rem 0;
+            letter-spacing: 1px;
+        }
+
+        .hero-text .date {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--bright-green);
+            font-weight: 900;
+            margin-top: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-logo {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-large {
+            width: 100%;
+            max-width: 400px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* ARTISTS SECTION */
+        .artists-section {
+            padding: 4rem 2rem;
+            background-color: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artists-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(162, 103, 239, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* MARQUEE STYLING */
+        .marquee-container {
+            position: relative;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--black) 0%, var(--dark-green) 50%, var(--black) 100%);
+            padding: 1.5rem;
+            border-top: 4px solid var(--bright-green);
+            border-bottom: 4px solid var(--bright-green);
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 20px rgba(58, 175, 34, 0.3),
+                0 0 20px rgba(58, 175, 34, 0.5);
+        }
+
+        .marquee-container::before,
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--black), transparent);
+        }
+
+        .marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--black), transparent);
+        }
+
+        .marquee-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 10px rgba(58, 175, 34, 0.6),
+                0 0 20px rgba(162, 103, 239, 0.4);
+        }
+
+        .marquee-scroll {
+            display: flex;
+            animation: marqueeScroll 20s linear infinite;
+            white-space: nowrap;
+            gap: 2rem;
+        }
+
+        .marquee-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marqueeScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-item {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--bright-green);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0.5rem;
+            text-shadow: 0 0 10px rgba(58, 175, 34, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .marquee-bulb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--bright-green);
+            box-shadow: 0 0 8px var(--bright-green);
+            animation: bulbFlash 0.3s ease-in-out infinite;
+        }
+
+        @keyframes bulbFlash {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 8px var(--bright-green);
+            }
+            50% {
+                opacity: 0.4;
+                box-shadow: 0 0 4px var(--bright-green);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-header .highlight {
+            color: var(--bright-green);
+        }
+
+        .artists-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .artist-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--dark-green), #0a0a0a);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid var(--bright-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 0 15px rgba(58, 175, 34, 0.3),
+                inset 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .artist-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(58, 175, 34, 0.4) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .artist-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(162, 103, 239, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .artist-card:hover {
+            transform: scale(1.08) translateY(-10px);
+            border-color: var(--soft-lavender);
+            box-shadow: 
+                0 0 30px rgba(58, 175, 34, 0.8),
+                0 15px 40px rgba(58, 175, 34, 0.4),
+                inset 0 0 20px rgba(200, 154, 239, 0.3);
+        }
+
+        .artist-card:hover::before {
+            opacity: 1;
+        }
+
+        .artist-card:hover::after {
+            opacity: 1;
+        }
+
+        .artist-placeholder {
+            text-align: center;
+            color: var(--bright-green);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            padding: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 3;
+            text-shadow: 0 0 10px rgba(58, 175, 34, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .artist-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* SPONSORS SECTION */
+        .sponsors-section {
+            background: linear-gradient(135deg, var(--medium-purple) 0%, var(--soft-lavender) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .sponsors-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sponsor-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .sponsor-placeholder {
+            color: var(--black);
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            background-color: var(--medium-purple);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-section .highlight {
+            color: var(--bright-green);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--white);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--bright-green);
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .footer-text {
+            color: var(--white);
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-right a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-right a:hover {
+            opacity: 0.8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .brand-name {
+                font-size: 1.3rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text .festival-type {
+                font-size: 1.1rem;
+            }
+
+            .hero-text .date {
+                font-size: 1.3rem;
+            }
+
+            .logo-large {
+                max-width: 250px;
+            }
+
+            .marquee-title {
+                font-size: 1.3rem;
+            }
+
+            .marquee-item {
+                font-size: 1.1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .sponsors-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .sponsor-card {
+                min-height: 120px;
+                padding: 1rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .about-content {
+                font-size: 1rem;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-right {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .brand-name {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+
+            .nav-links {
+                gap: 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero-text h1 {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+
+            .hero-text .festival-type {
+                font-size: 0.9rem;
+            }
+
+            .hero-text .date {
+                font-size: 1.1rem;
+            }
+
+            .logo-large {
+                max-width: 180px;
+            }
+
+            .marquee-container {
+                padding: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .marquee-title {
+                font-size: 1rem;
+                letter-spacing: 2px;
+                margin-bottom: 0.75rem;
+            }
+
+            .marquee-item {
+                font-size: 0.9rem;
+                gap: 1rem;
+            }
+
+            .marquee-bulb {
+                width: 10px;
+                height: 10px;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+                gap: 1rem;
+            }
+
+            .artist-card {
+                border-radius: 6px;
+            }
+
+            .artist-placeholder {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo-container">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23b870ef'/%3E%3C/svg%3E" alt="ABSFest Logo" class="logo-img">
+            <span class="brand-name">ABSFEST</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#artists">Artists</a></li>
+            <li><a href="#apply">Apply</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="social-icons">
+                <a href="#instagram">📷</a>
+                <a href="#facebook">f</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>ABSFEST:<br>ASHEVILLE<br>BURLESQUE<br><span class="highlight">AND</span><br>SIDESHOW<br>FESTIVAL</h1>
+                <p class="festival-type">~ A Night of Pure Spectacle ~</p>
+                <p class="date">JUNE 4–7, 2026</p>
+            </div>
+            <div class="hero-logo">
+                <svg class="logo-large" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="orbGradient" cx="40%" cy="40%">
+                            <stop offset="0%" style="stop-color:#c89aef;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#b870ef;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="95" fill="url(#orbGradient)" stroke="#a267ef" stroke-width="3"/>
+                    <circle cx="100" cy="100" r="85" fill="none" stroke="#21412b" stroke-width="2" opacity="0.3"/>
+                    
+                    <!-- Decorative elements -->
+                    <path d="M 80 60 Q 70 50 60 60" fill="none" stroke="#a267ef" stroke-width="2" opacity="0.6"/>
+                    <path d="M 120 60 Q 130 50 140 60" fill="none" stroke="#a267ef" stroke-width="2" opacity="0.6"/>
+                    
+                    <!-- Center medusa representation -->
+                    <circle cx="100" cy="85" r="15" fill="#8B4FB8" opacity="0.7"/>
+                    <circle cx="100" cy="100" r="8" fill="#3aaf22"/>
+                    
+                    <!-- Snakes suggestion -->
+                    <path d="M 75 100 Q 70 95 68 85" fill="none" stroke="#7A5A8F" stroke-width="2" opacity="0.8"/>
+                    <path d="M 125 100 Q 130 95 132 85" fill="none" stroke="#7A5A8F" stroke-width="2" opacity="0.8"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARTISTS SECTION -->
+    <section class="artists-section" id="artists">
+        <!-- MARQUEE -->
+        <div class="marquee-container">
+            <div class="marquee-title">★ NOW PRESENTING ★</div>
+            <div class="marquee-scroll">
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist One <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Two <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Three <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Four <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Five <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Six <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Seven <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Eight <span class="marquee-bulb"></span></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist One <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Two <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Three <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Four <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Five <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Six <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Seven <span class="marquee-bulb"></span></div>
+                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Eight <span class="marquee-bulb"></span></div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>OUR <span class="highlight">2026</span> PERFORMERS</h2>
+        </div>
+        
+        <div class="artists-container">
+            <div class="artists-grid">
+                <!-- Artist slots with spotlight effects -->
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+                <div class="artist-card">
+                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPONSORS SECTION -->
+    <section class="sponsors-section">
+        <h2>IN PARTNERSHIP WITH</h2>
+        <div class="sponsors-grid">
+            <div class="sponsor-card">
+                <div class="sponsor-placeholder">Sponsor 1</div>
+            </div>
+            <div class="sponsor-card">
+                <div class="sponsor-placeholder">Sponsor 2</div>
+            </div>
+            <div class="sponsor-card">
+                <div class="sponsor-placeholder">Sponsor 3</div>
+            </div>
+            <div class="sponsor-card">
+                <div class="sponsor-placeholder">Sponsor 4</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section">
+        <h2>WHAT IS <span class="highlight">ABSFEST</span>?</h2>
+        <div class="about-content">
+            <p>The Asheville Burlesque & Sideshow Festival is a celebration of performance art, creativity, and community. Over four incredible days and nights, experience epic stage shows, afterparties, workshops, and free community lectures and panels. We keep Asheville weird while nurturing creativity, community, and empowerment.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-left">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23b870ef'/%3E%3C/svg%3E" alt="ABSFest Logo" class="footer-logo">
+            <span class="footer-text">© 2026 Asheville Burlesque & Sideshow Festival</span>
+        </div>
+        <div class="footer-right">
+            <a href="#home">Home</a>
+            <a href="#apply">Apply</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>
