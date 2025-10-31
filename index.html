@@ -218,143 +218,269 @@
             z-index: 1;
         }
 
-        /* MARQUEE STYLING */
-        .marquee-container {
+        /* THEATER HEADER STYLING */
+        .theater-header {
             position: relative;
-            margin-bottom: 3rem;
-            background: linear-gradient(90deg, var(--black) 0%, var(--dark-green) 50%, var(--black) 100%);
-            padding: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--black) 50%, var(--dark-green) 100%);
             border-top: 4px solid var(--bright-green);
             border-bottom: 4px solid var(--bright-green);
+            text-align: center;
             overflow: hidden;
-            box-shadow: 
-                inset 0 0 20px rgba(58, 175, 34, 0.3),
-                0 0 20px rgba(58, 175, 34, 0.5);
         }
 
-        .marquee-container::before,
-        .marquee-container::after {
-            content: '';
+        .theater-header::before {
+            content: '✦';
             position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100px;
-            z-index: 10;
-            pointer-events: none;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--bright-green);
+            opacity: 0.6;
         }
 
-        .marquee-container::before {
-            left: 0;
-            background: linear-gradient(to right, var(--black), transparent);
+        .theater-header::after {
+            content: '✦';
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--bright-green);
+            opacity: 0.6;
         }
 
-        .marquee-container::after {
-            right: 0;
-            background: linear-gradient(to left, var(--black), transparent);
+        .theater-header-content {
+            position: relative;
+            z-index: 2;
         }
 
-        .marquee-title {
+        .theater-header-subtitle {
+            font-family: 'Trirong', serif;
+            font-size: 0.95rem;
+            color: var(--soft-lavender);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(162, 103, 239, 0.4);
+        }
+
+        .theater-header h2 {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--white);
-            text-align: center;
-            margin-bottom: 1rem;
             text-shadow: 
                 0 0 10px rgba(58, 175, 34, 0.6),
                 0 0 20px rgba(162, 103, 239, 0.4);
+            margin: 0;
         }
 
-        .marquee-scroll {
+        .theater-header .highlight {
+            color: var(--bright-green);
+        }
+
+        /* FEATURED ARTIST SECTION */
+        .featured-artist-section {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .featured-label {
+            text-align: center;
+            font-family: 'Trirong', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--soft-lavender);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(162, 103, 239, 0.4);
+        }
+
+        .featured-artist-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--dark-green), #0a0a0a);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--bright-green);
             display: flex;
-            animation: marqueeScroll 20s linear infinite;
-            white-space: nowrap;
-            gap: 2rem;
+            align-items: flex-end;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px rgba(58, 175, 34, 0.5),
+                0 0 60px rgba(162, 103, 239, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: featuredPulse 3s ease-in-out infinite;
         }
 
-        .marquee-scroll:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes marqueeScroll {
-            0% {
-                transform: translateX(0);
+        @keyframes featuredPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(58, 175, 34, 0.5),
+                    0 0 60px rgba(162, 103, 239, 0.3),
+                    inset 0 0 20px rgba(0, 0, 0, 0.5);
             }
-            100% {
-                transform: translateX(-50%);
+            50% {
+                box-shadow: 
+                    0 0 40px rgba(58, 175, 34, 0.7),
+                    0 0 80px rgba(162, 103, 239, 0.5),
+                    inset 0 0 20px rgba(200, 154, 239, 0.2);
             }
         }
 
-        .marquee-item {
+        .featured-artist-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(58, 175, 34, 0.3) 0%, transparent 70%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .featured-placeholder {
+            text-align: center;
+            color: var(--bright-green);
             font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
+            font-size: 1rem;
+            padding: 1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 4;
+            text-shadow: 0 0 10px rgba(58, 175, 34, 0.6);
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .featured-name-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 100%);
+            padding: 1.5rem 1rem 1rem;
+            text-align: center;
+            z-index: 4;
+        }
+
+        .featured-name-banner-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--bright-green);
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(58, 175, 34, 0.8);
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* CAROUSEL SECTION */
+        .carousel-section {
+            position: relative;
+            z-index: 2;
+            margin-top: 2rem;
+        }
+
+        .carousel-label {
+            text-align: center;
+            font-family: 'Trirong', serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--soft-lavender);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(162, 103, 239, 0.4);
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--bright-green) rgba(58, 175, 34, 0.2);
+        }
+
+        .carousel-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar-track {
+            background: rgba(58, 175, 34, 0.1);
+        }
+
+        .carousel-wrapper::-webkit-scrollbar-thumb {
+            background: var(--bright-green);
+            border-radius: 10px;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--soft-lavender);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-btn {
+            background-color: var(--bright-green);
+            color: var(--black);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .marquee-bulb {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--bright-green);
-            box-shadow: 0 0 8px var(--bright-green);
-            animation: bulbFlash 0.3s ease-in-out infinite;
+        .carousel-btn:hover {
+            background-color: var(--soft-lavender);
+            transform: scale(1.05);
         }
 
-        @keyframes bulbFlash {
-            0%, 100% {
-                opacity: 1;
-                box-shadow: 0 0 8px var(--bright-green);
-            }
-            50% {
-                opacity: 0.4;
-                box-shadow: 0 0 4px var(--bright-green);
-            }
+        .carousel-btn:active {
+            transform: scale(0.95);
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-header h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-header .highlight {
-            color: var(--bright-green);
-        }
-
-        .artists-container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .artists-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .artist-card {
+        .carousel-card {
+            flex: 0 0 140px;
             aspect-ratio: 1;
             background: linear-gradient(135deg, var(--dark-green), #0a0a0a);
             border-radius: 8px;
@@ -363,15 +489,15 @@
             position: relative;
             border: 2px solid var(--bright-green);
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             transition: all 0.3s ease;
             box-shadow: 
-                0 0 15px rgba(58, 175, 34, 0.3),
-                inset 0 0 15px rgba(0, 0, 0, 0.5);
+                0 0 10px rgba(58, 175, 34, 0.3),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .artist-card::before {
+        .carousel-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -383,9 +509,10 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            z-index: 5;
         }
 
-        .artist-card::after {
+        .carousel-card::after {
             content: '';
             position: absolute;
             top: 0;
@@ -396,44 +523,70 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            z-index: 2;
+            z-index: 5;
         }
 
-        .artist-card:hover {
-            transform: scale(1.08) translateY(-10px);
+        .carousel-card:hover {
+            transform: scale(1.08) translateY(-8px);
             border-color: var(--soft-lavender);
             box-shadow: 
-                0 0 30px rgba(58, 175, 34, 0.8),
-                0 15px 40px rgba(58, 175, 34, 0.4),
-                inset 0 0 20px rgba(200, 154, 239, 0.3);
+                0 0 20px rgba(58, 175, 34, 0.8),
+                0 10px 30px rgba(58, 175, 34, 0.4),
+                inset 0 0 15px rgba(200, 154, 239, 0.2);
         }
 
-        .artist-card:hover::before {
+        .carousel-card:hover::before {
             opacity: 1;
         }
 
-        .artist-card:hover::after {
+        .carousel-card:hover::after {
             opacity: 1;
         }
 
-        .artist-placeholder {
+        .carousel-placeholder {
             text-align: center;
             color: var(--bright-green);
             font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
-            padding: 1.5rem;
+            font-size: 0.7rem;
+            padding: 0.75rem;
             font-weight: 700;
             position: relative;
-            z-index: 3;
-            text-shadow: 0 0 10px rgba(58, 175, 34, 0.6);
-            letter-spacing: 1px;
+            z-index: 4;
+            text-shadow: 0 0 8px rgba(58, 175, 34, 0.6);
+            letter-spacing: 0.5px;
+            width: 100%;
         }
 
-        .artist-image {
+        .carousel-name-banner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            padding: 0.75rem 0.5rem 0.5rem;
+            text-align: center;
+            z-index: 4;
+        }
+
+        .carousel-name-banner-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: var(--bright-green);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 6px rgba(58, 175, 34, 0.6);
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .carousel-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             z-index: 1;
         }
 
@@ -595,21 +748,52 @@
                 max-width: 250px;
             }
 
-            .marquee-title {
-                font-size: 1.3rem;
+            .theater-header {
+                padding: 1.5rem 1rem;
+                margin-bottom: 1.5rem;
             }
 
-            .marquee-item {
+            .theater-header::before,
+            .theater-header::after {
+                display: none;
+            }
+
+            .theater-header-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .theater-header h2 {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+
+            .featured-label {
+                font-size: 0.8rem;
+            }
+
+            .featured-artist-card {
+                max-width: 100%;
+            }
+
+            .featured-name-banner-text {
                 font-size: 1.1rem;
             }
 
-            .section-header h2 {
-                font-size: 1.8rem;
+            .carousel-label {
+                font-size: 0.8rem;
             }
 
-            .artists-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 1.5rem;
+            .carousel-card {
+                flex: 0 0 130px;
+            }
+
+            .carousel-name-banner-text {
+                font-size: 0.6rem;
+            }
+
+            .carousel-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
             }
 
             .sponsors-grid {
@@ -682,43 +866,85 @@
                 max-width: 180px;
             }
 
-            .marquee-container {
+            .theater-header {
                 padding: 1rem;
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
             }
 
-            .marquee-title {
-                font-size: 1rem;
-                letter-spacing: 2px;
+            .theater-header-subtitle {
+                font-size: 0.75rem;
+            }
+
+            .theater-header h2 {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .featured-artist-section {
+                margin-bottom: 1.5rem;
+            }
+
+            .featured-label {
+                font-size: 0.7rem;
                 margin-bottom: 0.75rem;
             }
 
-            .marquee-item {
-                font-size: 0.9rem;
+            .featured-artist-card {
+                border-radius: 10px;
+            }
+
+            .featured-placeholder {
+                font-size: 0.85rem;
+            }
+
+            .featured-name-banner {
+                padding: 1rem 0.75rem 0.75rem;
+            }
+
+            .featured-name-banner-text {
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+            }
+
+            .carousel-section {
+                margin-top: 1.5rem;
+            }
+
+            .carousel-label {
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+            }
+
+            .carousel-wrapper {
                 gap: 1rem;
+                padding: 0.75rem 0;
             }
 
-            .marquee-bulb {
-                width: 10px;
-                height: 10px;
-            }
-
-            .section-header h2 {
-                font-size: 1.4rem;
-            }
-
-            .artists-grid {
-                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-                gap: 1rem;
-            }
-
-            .artist-card {
+            .carousel-card {
+                flex: 0 0 110px;
                 border-radius: 6px;
             }
 
-            .artist-placeholder {
-                font-size: 0.85rem;
-                padding: 1rem;
+            .carousel-placeholder {
+                font-size: 0.65rem;
+            }
+
+            .carousel-name-banner {
+                padding: 0.5rem 0.4rem 0.35rem;
+            }
+
+            .carousel-name-banner-text {
+                font-size: 0.55rem;
+            }
+
+            .carousel-controls {
+                gap: 0.75rem;
+                margin-top: 1rem;
+            }
+
+            .carousel-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -779,112 +1005,185 @@
 
     <!-- ARTISTS SECTION -->
     <section class="artists-section" id="artists">
-        <!-- MARQUEE -->
-        <div class="marquee-container">
-            <div class="marquee-title">★ NOW PRESENTING ★</div>
-            <div class="marquee-scroll">
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist One <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Two <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Three <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Four <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Five <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Six <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Seven <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Eight <span class="marquee-bulb"></span></div>
-                <!-- Duplicate for seamless loop -->
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist One <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Two <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Three <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Four <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Five <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Six <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Seven <span class="marquee-bulb"></span></div>
-                <div class="marquee-item"><span class="marquee-bulb"></span> Artist Eight <span class="marquee-bulb"></span></div>
+        <!-- ORNATE THEATER HEADER -->
+        <div class="theater-header">
+            <div class="theater-header-content">
+                <div class="theater-header-subtitle">~ Now Presenting ~</div>
+                <h2>OUR <span class="highlight">2026</span> PERFORMERS</h2>
             </div>
         </div>
 
-        <div class="section-header">
-            <h2>OUR <span class="highlight">2026</span> PERFORMERS</h2>
+        <!-- FEATURED ARTIST -->
+        <div class="featured-artist-section">
+            <div class="featured-label">★ FEATURED PERFORMER ★</div>
+            <div class="featured-artist-card" id="featuredCard">
+                <div class="featured-placeholder">Coming Soon</div>
+                <div class="featured-name-banner">
+                    <div class="featured-name-banner-text" id="featuredName">Artist Name</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="artists-container">
-            <div class="artists-grid">
-                <!-- Artist slots with spotlight effects -->
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
+
+        <!-- CAROUSEL -->
+        <div class="carousel-section">
+            <div class="carousel-label">~ Complete Lineup ~</div>
+            <div class="carousel-container">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist One</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Two</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Three</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Four</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Five</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Six</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Seven</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Eight</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Nine</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Ten</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Eleven</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Twelve</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Thirteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Fourteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Fifteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Sixteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Seventeen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Eighteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Nineteen</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist Twenty</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist TwentyOne</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist TwentyTwo</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist TwentyThree</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist TwentyFour</div>
+                        </div>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="carousel-placeholder">Coming Soon</div>
+                        <div class="carousel-name-banner">
+                            <div class="carousel-name-banner-text">Artist TwentyFive</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
-                <div class="artist-card">
-                    <div class="artist-placeholder">Artist<br>Coming Soon</div>
-                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="scrollCarousel(-1)">← Previous</button>
+                <button class="carousel-btn" onclick="scrollCarousel(1)">Next →</button>
             </div>
         </div>
     </section>
@@ -928,5 +1227,64 @@
             <a href="#contact">Contact</a>
         </div>
     </footer>
+
+    <script>
+        // List of all artist names
+        const artistNames = [
+            'Artist One', 'Artist Two', 'Artist Three', 'Artist Four', 'Artist Five',
+            'Artist Six', 'Artist Seven', 'Artist Eight', 'Artist Nine', 'Artist Ten',
+            'Artist Eleven', 'Artist Twelve', 'Artist Thirteen', 'Artist Fourteen', 'Artist Fifteen',
+            'Artist Sixteen', 'Artist Seventeen', 'Artist Eighteen', 'Artist Nineteen', 'Artist Twenty',
+            'Artist TwentyOne', 'Artist TwentyTwo', 'Artist TwentyThree', 'Artist TwentyFour', 'Artist TwentyFive'
+        ];
+
+        let currentFeaturedIndex = 0;
+
+        // Function to update featured artist
+        function updateFeaturedArtist(index) {
+            const featuredName = document.getElementById('featuredName');
+            const carouselCards = document.querySelectorAll('.carousel-card');
+            
+            // Update featured artist name
+            featuredName.textContent = artistNames[index];
+            
+            // Remove active state from all carousel cards
+            carouselCards.forEach(card => {
+                card.style.borderColor = 'var(--bright-green)';
+            });
+            
+            // Highlight the corresponding carousel card
+            if (carouselCards[index]) {
+                carouselCards[index].style.borderColor = 'var(--soft-lavender)';
+            }
+        }
+
+        // Auto-rotate featured artist every 4 seconds
+        setInterval(() => {
+            currentFeaturedIndex = (currentFeaturedIndex + 1) % artistNames.length;
+            updateFeaturedArtist(currentFeaturedIndex);
+        }, 4000);
+
+        // Carousel navigation
+        function scrollCarousel(direction) {
+            const carousel = document.getElementById('carouselWrapper');
+            const scrollAmount = 160; // card width + gap
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        // Make carousel cards clickable to become featured
+        document.querySelectorAll('.carousel-card').forEach((card, index) => {
+            card.addEventListener('click', () => {
+                currentFeaturedIndex = index;
+                updateFeaturedArtist(currentFeaturedIndex);
+            });
+        });
+
+        // Initialize with first artist
+        updateFeaturedArtist(0);
+    </script>
 </body>
 </html>
