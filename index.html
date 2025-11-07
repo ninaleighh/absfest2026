@@ -42,34 +42,6 @@
             z-index: -2;
         }
 
-        .floating-snakes {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .snake {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0.1;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .snake::before {
-            content: '🐍';
-            font-size: 60px;
-            filter: hue-rotate(280deg) brightness(1.5);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-            33% { transform: translateY(-30px) translateX(20px) rotate(120deg); }
-            66% { transform: translateY(20px) translateX(-30px) rotate(240deg); }
-        }
-
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -160,6 +132,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             animation: pulse 2s infinite;
+            display: inline-block;
         }
 
         @keyframes pulse {
@@ -320,13 +293,6 @@
             letter-spacing: 0.2em;
         }
 
-        /* Parallax Effect */
-        .parallax-element {
-            position: fixed;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
         /* Loading Animation */
         .loading-screen {
             position: fixed;
@@ -343,11 +309,11 @@
         }
 
         .loading-snake {
-    width: 150px;  /* Adjust size as needed */
-    height: 150px;
-    animation: spin 1s linear infinite;
-    filter: drop-shadow(0 0 20px rgba(162, 103, 239, 0.8));
-}
+            width: 150px;
+            height: 150px;
+            animation: spin 1s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(162, 103, 239, 0.8));
+        }
 
         @keyframes spin {
             from { transform: rotate(0deg); }
@@ -358,26 +324,6 @@
             to {
                 opacity: 0;
                 visibility: hidden;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .logo-main {
-                width: 250px;
-                height: 250px;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .countdown {
-                gap: 1rem;
             }
         }
 
@@ -399,32 +345,109 @@
                 opacity: 0;
             }
         }
+
+        /* Enhanced Mobile Optimization */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 0.1em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .logo-main {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .cta-button {
+                padding: 1rem 3rem;
+                font-size: 1rem;
+            }
+            
+            .countdown {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .info-card {
+                padding: 1.5rem;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+            
+            /* Disable mouse trail on mobile for performance */
+            .trail {
+                display: none;
+            }
+        }
+
+        /* Even smaller phones */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                min-height: 90vh;
+            }
+            
+            .logo-main {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Loading Screen -->
-<div class="loading-screen">
-    <img src="images/2026 absfest_2_RGB.png" class="loading-snake" alt="Loading">
-</div>
+    <div class="loading-screen">
+        <img src="/mnt/project/2026_main_logo_file_text.png" class="loading-snake" alt="Loading">
+    </div>
 
     <!-- Cosmic Background -->
     <div class="cosmic-bg"></div>
-    
-    <!-- Floating Snakes -->
-    <div class="floating-snakes" id="snakeContainer"></div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="logo-container">
-            <img src="images/2026 absfest_2_RGB.png" alt="ABSFEST 2026 Logo" class="logo-main">
+            <img src="/mnt/project/2026_main_logo_file_text.png" alt="ABSFEST 2026 Logo" class="logo-main">
         </div>
         <h1 class="hero-title">ABSFEST 2026</h1>
         <p class="hero-subtitle">UNLEASH THE INCREDIBLE</p>
-        <a href="#" class="cta-button">ENTER THE REALM</a>
+        <a href="#event-info" class="cta-button">ENTER THE REALM</a>
     </section>
 
     <!-- Event Info Section -->
-    <section class="section">
+    <section class="section" id="event-info">
         <h2 class="section-title">THE EXPERIENCE AWAITS</h2>
         
         <!-- Countdown Timer -->
@@ -469,8 +492,6 @@
     </footer>
 
     <script>
-        
-
         // Countdown Timer
         const targetDate = new Date('June 4, 2026 00:07:00').getTime();
         
@@ -492,7 +513,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Parallax Effect
+        // Parallax Effect for logo only (removed snakes)
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX / window.innerWidth - 0.5;
             const y = e.clientY / window.innerHeight - 0.5;
@@ -501,35 +522,35 @@
             if (logo) {
                 logo.style.transform = `translateX(${x * 20}px) translateY(${y * 20}px)`;
             }
-            
-            // Update floating snakes parallax
-            document.querySelectorAll('.snake').forEach((snake, index) => {
-                const speed = (index + 1) * 0.5;
-                snake.style.transform = `translateX(${x * speed * 10}px) translateY(${y * speed * 10}px)`;
-            });
         });
 
-        // Mouse Trail Effect
+        // Mouse Trail Effect (disabled on mobile via CSS)
         let mouseTimer;
         document.addEventListener('mousemove', (e) => {
-            clearTimeout(mouseTimer);
-            mouseTimer = setTimeout(() => {
-                const trail = document.createElement('div');
-                trail.className = 'trail';
-                trail.style.left = e.pageX + 'px';
-                trail.style.top = e.pageY + 'px';
-                document.body.appendChild(trail);
-                
-                setTimeout(() => {
-                    trail.remove();
-                }, 1000);
-            }, 10);
+            // Check if on desktop
+            if (window.innerWidth > 768) {
+                clearTimeout(mouseTimer);
+                mouseTimer = setTimeout(() => {
+                    const trail = document.createElement('div');
+                    trail.className = 'trail';
+                    trail.style.left = e.pageX + 'px';
+                    trail.style.top = e.pageY + 'px';
+                    document.body.appendChild(trail);
+                    
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 1000);
+                }, 10);
+            }
         });
 
         // Smooth scroll for CTA button
         document.querySelector('.cta-button').addEventListener('click', (e) => {
             e.preventDefault();
-            document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+            const target = document.querySelector('#event-info');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
 
         // Add entrance animations to cards when they come into view
@@ -568,7 +589,7 @@
             }, 2500);
         });
 
-        // Add mystical particle effect
+        // Add mystical particle effect (only on desktop for performance)
         function createParticle() {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
@@ -595,7 +616,10 @@
             animation.onfinish = () => particle.remove();
         }
         
-        setInterval(createParticle, 300);
+        // Only run particles on desktop
+        if (window.innerWidth > 768) {
+            setInterval(createParticle, 300);
+        }
     </script>
 </body>
 </html>
