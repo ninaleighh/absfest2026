@@ -343,10 +343,11 @@
         }
 
         .loading-snake {
-            font-size: 100px;
-            animation: spin 1s linear infinite;
-            filter: hue-rotate(280deg);
-        }
+    width: 150px;  /* Adjust size as needed */
+    height: 150px;
+    animation: spin 1s linear infinite;
+    filter: drop-shadow(0 0 20px rgba(162, 103, 239, 0.8));
+}
 
         @keyframes spin {
             from { transform: rotate(0deg); }
@@ -402,9 +403,9 @@
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loading-snake">/images/2026 absfest_2_RGB.png</div>
-    </div>
+<div class="loading-screen">
+    <img src="images/2026 absfest_2_RGB.png" class="loading-snake" alt="Loading">
+</div>
 
     <!-- Cosmic Background -->
     <div class="cosmic-bg"></div>
