@@ -1,562 +1,610 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABSFEST 2026 - Unleash the Mythical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trirong:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-export default function AbsFestHomepage() {
-  const [mainArtistIndex, setMainArtistIndex] = useState(0);
-  const [carouselStart, setCarouselStart] = useState(0);
-  const [expandedFaq, setExpandedFaq] = useState(null);
+        :root {
+            --primary-green: #3aaf22;
+            --dark-green: #21412b;
+            --purple-1: #a267ef;
+            --purple-2: #b870ef;
+            --purple-3: #bfb88e;
+            --purple-4: #c89aef;
+            --dark-purple: #4a1f7a;
+            --black: #0a0a0a;
+        }
 
-  // Muted carnival poster colors
-  const colors = {
-    darkBg: '#3d3d3d',
-    cream: '#e8dcc8',
-    dustyPurple: '#6b5b7e',
-    mutedGreen: '#5a6b4f',
-    gold: '#8b7355',
-    darkGray: '#2a2a2a',
-    mauve: '#9d7f8a',
-    sage: '#7a8968',
-  };
+        body {
+            font-family: 'Trirong', serif;
+            background: var(--black);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="8" fill="%23a267ef" opacity="0.8"/></svg>'), auto;
+        }
 
-  // Sample artist data
-  const artists = [
-    { name: 'The Mystic Medusa', role: 'Featured Performer', image: '🐍' },
-    { name: 'Velvet Serpent', role: 'Aerial Act', image: '🌙' },
-    { name: 'Crystal Visions', role: 'Fortune Teller', image: '✨' },
-    { name: 'Shadow Dancer', role: 'Performer', image: '🎭' },
-    { name: 'Luna Eclipse', role: 'Fire Performer', image: '🔥' },
-    { name: 'Starlight Weaver', role: 'Acrobat', image: '⭐' },
-    { name: 'Phantom Pulse', role: 'DJ', image: '🎵' },
-    { name: 'Midnight Mirage', role: 'Performer', image: '🌑' },
-    { name: 'Aurora Blaze', role: 'Dancer', image: '💜' },
-    { name: 'Neon Prophet', role: 'Performer', image: '🔮' },
-    { name: 'Echo Chamber', role: 'Sound Artist', image: '🎤' },
-    { name: 'Prism Collective', role: 'Group Performance', image: '🎨' },
-    { name: 'Void Keeper', role: 'Visual Artist', image: '🌌' },
-    { name: 'Silk Route', role: 'Flow Artist', image: '🌸' },
-    { name: 'Cosmic Pulse', role: 'Performer', image: '🌠' },
-  ];
+        /* Animated Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2a 50%, #2a0a3a 100%);
+            z-index: -2;
+        }
 
-  const sponsors = [
-    { name: 'Neon Nights Production', logo: '🎪' },
-    { name: 'Purple Vibe Entertainment', logo: '🎭' },
-  ];
+        .floating-snakes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-  const faqItems = [
-    {
-      question: 'When and where is AbsFest 2025?',
-      answer: 'AbsFest 2025 takes place [DATE] at [LOCATION]. Check back soon for ticket information and full details.',
-    },
-    {
-      question: 'How do I purchase tickets?',
-      answer: 'Tickets will be available through [TICKETING PLATFORM]. Early bird pricing may be available for limited time.',
-    },
-    {
-      question: 'Can I bring friends?',
-      answer: 'Absolutely! AbsFest is a community event. Group rates may be available.',
-    },
-    {
-      question: 'Is AbsFest family-friendly?',
-      answer: 'AbsFest features performances suitable for adult audiences. Age restrictions will be noted for specific acts.',
-    },
-    {
-      question: 'Where can I find artist lineups?',
-      answer: 'Full artist lineups and performance times will be announced as we get closer to the event date.',
-    },
-  ];
+        .snake {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
 
-  // Auto-cycle
-  useEffect(() => {
-    const mainTimer = setInterval(() => {
-      setMainArtistIndex((prev) => (prev + 1) % artists.length);
-    }, 5000);
-    return () => clearInterval(mainTimer);
-  }, [artists.length]);
+        .snake::before {
+            content: '🐍';
+            font-size: 60px;
+            filter: hue-rotate(280deg) brightness(1.5);
+        }
 
-  useEffect(() => {
-    const carouselTimer = setInterval(() => {
-      setCarouselStart((prev) => (prev + 1) % artists.length);
-    }, 4000);
-    return () => clearInterval(carouselTimer);
-  }, [artists.length]);
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            33% { transform: translateY(-30px) translateX(20px) rotate(120deg); }
+            66% { transform: translateY(20px) translateX(-30px) rotate(240deg); }
+        }
 
-  const visibleArtists = [
-    artists[(carouselStart) % artists.length],
-    artists[(carouselStart + 1) % artists.length],
-    artists[(carouselStart + 2) % artists.length],
-    artists[(carouselStart + 3) % artists.length],
-  ];
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(162, 103, 239, 0.1) 0%, transparent 70%);
+        }
 
-  const OrnamentalDivider = () => (
-    <div style={{
-      textAlign: 'center',
-      padding: '20px 0',
-      fontSize: '24px',
-      color: colors.gold,
-      letterSpacing: '8px',
-    }}>
-      ✦ ✦ ✦
+        .logo-container {
+            position: relative;
+            animation: logoFloat 4s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .logo-main {
+            width: 400px;
+            height: 400px;
+            filter: drop-shadow(0 0 50px rgba(162, 103, 239, 0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-main:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 80px rgba(58, 175, 34, 0.8));
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 2rem 0;
+            letter-spacing: 0.2em;
+            background: linear-gradient(45deg, var(--purple-1), var(--purple-2), var(--primary-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3) drop-shadow(0 0 20px rgba(162, 103, 239, 0.8)); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Trirong', serif;
+            font-size: 1.5rem;
+            color: var(--purple-4);
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 0.3em;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CTA Button */
+        .cta-button {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1.5rem 4rem;
+            background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
+            border: 2px solid var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(58, 175, 34, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(58, 175, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(58, 175, 34, 0); }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(162, 103, 239, 0.5);
+            border-color: var(--primary-green);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--purple-2);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🐍';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            filter: hue-rotate(280deg);
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(162, 103, 239, 0.1), rgba(58, 175, 34, 0.05));
+            border: 1px solid var(--purple-1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary-green) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-green);
+            box-shadow: 0 20px 40px rgba(58, 175, 34, 0.3);
+        }
+
+        .info-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            font-family: 'Trirong', serif;
+            line-height: 1.8;
+            color: var(--purple-4);
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 4rem 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            background: rgba(162, 103, 239, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--purple-2);
+            min-width: 120px;
+        }
+
+        .countdown-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            display: block;
+        }
+
+        .countdown-label {
+            font-family: 'Trirong', serif;
+            font-size: 1rem;
+            color: var(--purple-4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--purple-1);
+            margin-top: 5rem;
+            background: linear-gradient(to bottom, transparent, rgba(162, 103, 239, 0.05));
+        }
+
+        .footer-text {
+            font-family: 'Cinzel', serif;
+            color: var(--purple-2);
+            font-size: 1.2rem;
+            letter-spacing: 0.2em;
+        }
+
+        /* Parallax Effect */
+        .parallax-element {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease-out 2s forwards;
+        }
+
+        .loading-snake {
+            font-size: 100px;
+            animation: spin 1s linear infinite;
+            filter: hue-rotate(280deg);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .logo-main {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                gap: 1rem;
+            }
+        }
+
+        /* Mouse Trail Effect */
+        .trail {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-green);
+            pointer-events: none;
+            animation: trailFade 1s linear forwards;
+            z-index: 9998;
+        }
+
+        @keyframes trailFade {
+            to {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-snake">🐍</div>
     </div>
-  );
 
-  return (
-    <div style={{
-      backgroundColor: colors.darkBg,
-      color: colors.cream,
-      minHeight: '100vh',
-      fontFamily: '"Georgia", "Trebuchet MS", serif',
-      backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(107, 91, 126, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(90, 107, 79, 0.1) 0%, transparent 50%)',
-    }}>
-      {/* Header */}
-      <header style={{
-        backgroundColor: colors.darkGray,
-        padding: '15px 40px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottom: `3px dashed ${colors.gold}`,
-        borderTop: `3px dashed ${colors.gold}`,
-      }}>
-        <div style={{
-          fontSize: '20px',
-          fontWeight: 'bold',
-          color: colors.cream,
-          letterSpacing: '2px',
-          fontStyle: 'italic',
-        }}>
-          🎪 ABSFEST 🎪
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg"></div>
+    
+    <!-- Floating Snakes -->
+    <div class="floating-snakes" id="snakeContainer"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="logo-container">
+            <img src="/mnt/project/2026_main_logo_file_text.png" alt="ABSFEST 2026 Logo" class="logo-main">
         </div>
-        <nav style={{
-          display: 'flex',
-          gap: '25px',
-          fontSize: '13px',
-          color: colors.cream,
-          fontWeight: 'bold',
-          letterSpacing: '1px',
-        }}>
-          <a href="#artists" style={{ textDecoration: 'none', color: colors.cream, cursor: 'pointer', borderBottom: `2px solid ${colors.gold}`, paddingBottom: '2px' }}>ARTISTS</a>
-          <a href="#sponsors" style={{ textDecoration: 'none', color: colors.cream, cursor: 'pointer', borderBottom: `2px solid ${colors.gold}`, paddingBottom: '2px' }}>SPONSORS</a>
-          <a href="#about" style={{ textDecoration: 'none', color: colors.cream, cursor: 'pointer', borderBottom: `2px solid ${colors.gold}`, paddingBottom: '2px' }}>ABOUT</a>
-          <a href="#faq" style={{ textDecoration: 'none', color: colors.cream, cursor: 'pointer', borderBottom: `2px solid ${colors.gold}`, paddingBottom: '2px' }}>FAQ</a>
-        </nav>
-      </header>
+        <h1 class="hero-title">ABSFEST 2026</h1>
+        <p class="hero-subtitle">UNLEASH THE MYTHICAL</p>
+        <a href="#" class="cta-button">ENTER THE REALM</a>
+    </section>
 
-      {/* Hero Logo & Date Section */}
-      <section style={{
-        padding: '100px 40px',
-        textAlign: 'center',
-        backgroundColor: colors.darkGray,
-        borderBottom: `5px solid ${colors.gold}`,
-        position: 'relative',
-        background: `linear-gradient(135deg, ${colors.darkGray} 0%, rgba(139, 115, 85, 0.1) 100%)`,
-      }}>
-        {/* Decorative corner elements */}
-        <div style={{
-          position: 'absolute',
-          top: '20px',
-          left: '40px',
-          fontSize: '30px',
-          color: colors.gold,
-          opacity: 0.6,
-        }}>✦</div>
-        <div style={{
-          position: 'absolute',
-          top: '20px',
-          right: '40px',
-          fontSize: '30px',
-          color: colors.gold,
-          opacity: 0.6,
-        }}>✦</div>
-
-        <div style={{
-          fontSize: '140px',
-          marginBottom: '20px',
-          filter: 'drop-shadow(0 8px 20px rgba(139, 115, 85, 0.6))',
-          transform: 'skewY(-2deg)',
-        }}>
-          🐍
-        </div>
-
-        <h1 style={{
-          fontSize: '92px',
-          fontWeight: 'bold',
-          color: colors.cream,
-          marginBottom: '10px',
-          textShadow: `4px 4px 0px ${colors.dustyPurple}, 8px 8px 0px rgba(0,0,0,0.5)`,
-          letterSpacing: '6px',
-          fontStyle: 'italic',
-          transform: 'scaleY(1.1)',
-        }}>
-          ABSFEST
-        </h1>
-
-        <div style={{
-          fontSize: '64px',
-          color: colors.mauve,
-          fontWeight: 'bold',
-          textShadow: `3px 3px 0px ${colors.gold}`,
-          letterSpacing: '3px',
-          marginBottom: '20px',
-        }}>
-          2025
-        </div>
-
-        <OrnamentalDivider />
-
-        <p style={{
-          fontSize: '18px',
-          color: colors.gold,
-          marginTop: '15px',
-          fontStyle: 'italic',
-          letterSpacing: '2px',
-        }}>
-          ~ A Celebration of the Extraordinary ~
-        </p>
-
-        <div style={{
-          position: 'absolute',
-          bottom: '20px',
-          left: '40px',
-          fontSize: '30px',
-          color: colors.gold,
-          opacity: 0.6,
-        }}>✦</div>
-        <div style={{
-          position: 'absolute',
-          bottom: '20px',
-          right: '40px',
-          fontSize: '30px',
-          color: colors.gold,
-          opacity: 0.6,
-        }}>✦</div>
-      </section>
-
-      {/* Featured Artist Section */}
-      <section id="artists" style={{
-        padding: '80px 40px',
-        textAlign: 'center',
-        backgroundColor: colors.darkBg,
-        borderBottom: `4px dashed ${colors.gold}`,
-      }}>
-        <h2 style={{
-          fontSize: '52px',
-          marginBottom: '15px',
-          color: colors.mauve,
-          textShadow: `2px 2px 0px ${colors.gold}`,
-          letterSpacing: '3px',
-          fontStyle: 'italic',
-        }}>
-          FEATURED PERFORMERS
-        </h2>
-
-        <OrnamentalDivider />
-
-        {/* Main Featured Card */}
-        <div style={{
-          backgroundColor: colors.darkGray,
-          border: `6px solid ${colors.gold}`,
-          borderRadius: '0px',
-          padding: '60px 50px',
-          marginBottom: '50px',
-          maxWidth: '600px',
-          margin: '30px auto 50px',
-          boxShadow: `8px 8px 0px rgba(0,0,0,0.5), -2px -2px 0px ${colors.dustyPurple}`,
-          position: 'relative',
-          transform: 'skewX(-1deg)',
-        }}>
-          <div style={{
-            position: 'absolute',
-            top: '15px',
-            left: '20px',
-            fontSize: '20px',
-            color: colors.gold,
-          }}>✦</div>
-          <div style={{
-            position: 'absolute',
-            top: '15px',
-            right: '20px',
-            fontSize: '20px',
-            color: colors.gold,
-          }}>✦</div>
-
-          <div style={{ fontSize: '90px', marginBottom: '20px' }}>
-            {artists[mainArtistIndex].image}
-          </div>
-          <h3 style={{
-            fontSize: '36px',
-            marginBottom: '8px',
-            color: colors.cream,
-            fontWeight: 'bold',
-            letterSpacing: '2px',
-            textShadow: `1px 1px 0px ${colors.dustyPurple}`,
-          }}>
-            {artists[mainArtistIndex].name}
-          </h3>
-          <p style={{
-            fontSize: '16px',
-            color: colors.gold,
-            fontWeight: 'bold',
-            letterSpacing: '1px',
-          }}>
-            {artists[mainArtistIndex].role}
-          </p>
-
-          <div style={{
-            position: 'absolute',
-            bottom: '15px',
-            left: '20px',
-            fontSize: '20px',
-            color: colors.gold,
-          }}>✦</div>
-          <div style={{
-            position: 'absolute',
-            bottom: '15px',
-            right: '20px',
-            fontSize: '20px',
-            color: colors.gold,
-          }}>✦</div>
-        </div>
-
-        {/* Mini Carousel */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => setCarouselStart((prev) => (prev - 1 + artists.length) % artists.length)}
-            style={{
-              background: colors.dustyPurple,
-              border: `3px solid ${colors.gold}`,
-              color: colors.cream,
-              padding: '12px 16px',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              fontSize: '16px',
-              fontFamily: 'Georgia, serif',
-            }}
-          >
-            ◄
-          </button>
-
-          <div style={{ display: 'flex', gap: '18px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {visibleArtists.map((artist, idx) => (
-              <div
-                key={idx}
-                onClick={() => setMainArtistIndex(artists.indexOf(artist))}
-                style={{
-                  backgroundColor: colors.mutedGreen,
-                  border: `4px solid ${colors.gold}`,
-                  padding: '28px',
-                  minWidth: '130px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: `4px 4px 0px rgba(0,0,0,0.4)`,
-                  transform: 'skewX(-2deg)',
-                  position: 'relative',
-                }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'skewX(-2deg) scale(1.08)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'skewX(-2deg) scale(1)'}
-              >
-                <div style={{ fontSize: '48px', marginBottom: '8px' }}>{artist.image}</div>
-                <p style={{ fontSize: '11px', fontWeight: 'bold', color: colors.cream, margin: '4px 0', letterSpacing: '0.5px' }}>
-                  {artist.name.split(' ')[0]}
-                </p>
-                <p style={{ fontSize: '9px', color: colors.gold }}>
-                  {artist.role}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={() => setCarouselStart((prev) => (prev + 1) % artists.length)}
-            style={{
-              background: colors.dustyPurple,
-              border: `3px solid ${colors.gold}`,
-              color: colors.cream,
-              padding: '12px 16px',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              fontSize: '16px',
-              fontFamily: 'Georgia, serif',
-            }}
-          >
-            ►
-          </button>
-        </div>
-      </section>
-
-      {/* Sponsors Section */}
-      <section id="sponsors" style={{
-        padding: '80px 40px',
-        textAlign: 'center',
-        backgroundColor: colors.darkGray,
-        borderBottom: `4px dashed ${colors.gold}`,
-      }}>
-        <h2 style={{
-          fontSize: '48px',
-          marginBottom: '15px',
-          color: colors.mauve,
-          textShadow: `2px 2px 0px ${colors.gold}`,
-          letterSpacing: '2px',
-        }}>
-          PRESENTED BY
-        </h2>
-
-        <OrnamentalDivider />
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '60px', flexWrap: 'wrap', marginTop: '40px' }}>
-          {sponsors.map((sponsor, idx) => (
-            <div
-              key={idx}
-              style={{
-                backgroundColor: colors.darkBg,
-                border: `5px solid ${colors.gold}`,
-                padding: '45px',
-                minWidth: '280px',
-                boxShadow: `6px 6px 0px rgba(0,0,0,0.4), -3px -3px 0px ${colors.mauve}`,
-                position: 'relative',
-                transform: idx % 2 === 0 ? 'skewX(-2deg)' : 'skewX(2deg)',
-              }}
-            >
-              <div style={{ fontSize: '70px', marginBottom: '15px' }}>{sponsor.logo}</div>
-              <p style={{
-                fontSize: '18px',
-                fontWeight: 'bold',
-                color: colors.cream,
-                letterSpacing: '1px',
-              }}>
-                {sponsor.name}
-              </p>
+    <!-- Event Info Section -->
+    <section class="section">
+        <h2 class="section-title">THE EXPERIENCE AWAITS</h2>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" style={{
-        padding: '80px 40px',
-        display: 'flex',
-        gap: '60px',
-        alignItems: 'center',
-        backgroundColor: colors.darkBg,
-        borderBottom: `4px dashed ${colors.gold}`,
-      }}>
-        <div style={{
-          flex: 1,
-          fontSize: '100px',
-          textAlign: 'center',
-          filter: 'drop-shadow(0 6px 15px rgba(139, 115, 85, 0.5))',
-        }}>
-          🎪
-        </div>
-        <div style={{ flex: 1 }}>
-          <h2 style={{
-            fontSize: '44px',
-            marginBottom: '25px',
-            color: colors.mauve,
-            textShadow: `2px 2px 0px ${colors.gold}`,
-            letterSpacing: '2px',
-          }}>
-            WHAT IS ABSFEST?
-          </h2>
-          <p style={{
-            fontSize: '16px',
-            lineHeight: '1.8',
-            color: colors.cream,
-            fontStyle: 'italic',
-          }}>
-            AbsFest is a celebration of avant-garde performance, art, and community. Drawing inspiration from vintage carnival traditions and modern expression, we bring together extraordinary performers, visual artists, and creators for an unforgettable experience. Step into our world of wonder, mystery, and artistic revolution.
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section id="faq" style={{
-        padding: '80px 40px',
-        backgroundColor: colors.darkGray,
-      }}>
-        <h2 style={{
-          fontSize: '48px',
-          marginBottom: '15px',
-          textAlign: 'center',
-          color: colors.mauve,
-          textShadow: `2px 2px 0px ${colors.gold}`,
-          letterSpacing: '2px',
-        }}>
-          QUESTIONS & CURIOSITIES
-        </h2>
-
-        <OrnamentalDivider />
-
-        <div style={{ maxWidth: '750px', margin: '40px auto 0' }}>
-          {faqItems.map((item, idx) => (
-            <div
-              key={idx}
-              style={{
-                marginBottom: '20px',
-                border: `3px solid ${colors.gold}`,
-                backgroundColor: colors.darkBg,
-                boxShadow: `3px 3px 0px rgba(0,0,0,0.3)`,
-                transform: idx % 2 === 0 ? 'skewX(-1deg)' : 'skewX(1deg)',
-              }}
-            >
-              <button
-                onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                style={{
-                  width: '100%',
-                  padding: '20px',
-                  backgroundColor: colors.dustyPurple,
-                  border: 'none',
-                  color: colors.cream,
-                  fontSize: '15px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  fontFamily: 'Georgia, serif',
-                  letterSpacing: '1px',
-                }}
-              >
-                {item.question}
-                <ChevronDown
-                  size={18}
-                  style={{
-                    transform: expandedFaq === idx ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease',
-                  }}
-                />
-              </button>
-              {expandedFaq === idx && (
-                <div style={{
-                  padding: '20px',
-                  backgroundColor: colors.darkBg,
-                  borderTop: `2px solid ${colors.gold}`,
-                  color: colors.cream,
-                  fontSize: '14px',
-                  lineHeight: '1.6',
-                  fontStyle: 'italic',
-                }}>
-                  {item.answer}
-                </div>
-              )}
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
             </div>
-          ))}
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+            </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer style={{
-        backgroundColor: colors.darkGray,
-        padding: '30px',
-        textAlign: 'center',
-        color: colors.cream,
-        fontWeight: 'bold',
-        borderTop: `4px dashed ${colors.gold}`,
-        fontSize: '13px',
-        letterSpacing: '1px',
-      }}>
-        <p>© 2025 ABSFEST ~ ALL RIGHTS RESERVED ~ EST. 2025</p>
-        <p style={{ fontSize: '11px', marginTop: '10px', color: colors.gold }}>✦ A Celebration of Performance & Art ✦</p>
-      </footer>
-    </div>
-  );
-}
+        <div class="info-grid">
+            <div class="info-card">
+                <h3 class="card-title">MYSTICAL PERFORMANCES</h3>
+                <p class="card-content">Experience otherworldly performances from artists who channel the divine serpentine energy. Let the music transform you.</p>
+            </div>
+            <div class="info-card">
+                <h3 class="card-title">IMMERSIVE ART</h3>
+                <p class="card-content">Explore installations that blur the line between reality and myth. Interactive experiences that awaken your inner Medusa.</p>
+            </div>
+            <div class="info-card">
+                <h3 class="card-title">SACRED RITUALS</h3>
+                <p class="card-content">Participate in ceremonial gatherings that celebrate transformation, rebirth, and the power of collective consciousness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">ABSFEST 2026 © EMBRACE YOUR POWER</p>
+    </footer>
+
+    <script>
+        // Generate floating snakes
+        const snakeContainer = document.getElementById('snakeContainer');
+        for (let i = 0; i < 15; i++) {
+            const snake = document.createElement('div');
+            snake.className = 'snake';
+            snake.style.left = Math.random() * 100 + '%';
+            snake.style.top = Math.random() * 100 + '%';
+            snake.style.animationDelay = Math.random() * 20 + 's';
+            snake.style.animationDuration = (15 + Math.random() * 10) + 's';
+            snakeContainer.appendChild(snake);
+        }
+
+        // Countdown Timer
+        const targetDate = new Date('June 1, 2026 00:00:00').getTime();
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+            
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth - 0.5;
+            const y = e.clientY / window.innerHeight - 0.5;
+            
+            const logo = document.querySelector('.logo-container');
+            if (logo) {
+                logo.style.transform = `translateX(${x * 20}px) translateY(${y * 20}px)`;
+            }
+            
+            // Update floating snakes parallax
+            document.querySelectorAll('.snake').forEach((snake, index) => {
+                const speed = (index + 1) * 0.5;
+                snake.style.transform = `translateX(${x * speed * 10}px) translateY(${y * speed * 10}px)`;
+            });
+        });
+
+        // Mouse Trail Effect
+        let mouseTimer;
+        document.addEventListener('mousemove', (e) => {
+            clearTimeout(mouseTimer);
+            mouseTimer = setTimeout(() => {
+                const trail = document.createElement('div');
+                trail.className = 'trail';
+                trail.style.left = e.pageX + 'px';
+                trail.style.top = e.pageY + 'px';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 1000);
+            }, 10);
+        });
+
+        // Smooth scroll for CTA button
+        document.querySelector('.cta-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('.section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Add entrance animations to cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out';
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.info-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+
+        // Glitch effect on hover for title
+        const title = document.querySelector('.hero-title');
+        title.addEventListener('mouseenter', () => {
+            title.style.animation = 'none';
+            setTimeout(() => {
+                title.style.animation = 'textGlow 3s ease-in-out infinite';
+            }, 10);
+        });
+
+        // Loading screen removal
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').style.display = 'none';
+            }, 2500);
+        });
+
+        // Add mystical particle effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = `linear-gradient(45deg, ${Math.random() > 0.5 ? '#a267ef' : '#3aaf22'})`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            particle.style.zIndex = '1';
+            particle.style.boxShadow = `0 0 6px ${Math.random() > 0.5 ? '#a267ef' : '#3aaf22'}`;
+            document.body.appendChild(particle);
+            
+            const duration = 3000 + Math.random() * 2000;
+            const animation = particle.animate([
+                { transform: 'translateY(0) scale(1)', opacity: 1 },
+                { transform: `translateY(-${window.innerHeight + 100}px) scale(0)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'ease-out'
+            });
+            
+            animation.onfinish = () => particle.remove();
+        }
+        
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>
