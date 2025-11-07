@@ -469,17 +469,7 @@
     </footer>
 
     <script>
-        // Generate floating snakes
-        const snakeContainer = document.getElementById('snakeContainer');
-        for (let i = 0; i < 15; i++) {
-            const snake = document.createElement('div');
-            snake.className = 'snake';
-            snake.style.left = Math.random() * 100 + '%';
-            snake.style.top = Math.random() * 100 + '%';
-            snake.style.animationDelay = Math.random() * 20 + 's';
-            snake.style.animationDuration = (15 + Math.random() * 10) + 's';
-            snakeContainer.appendChild(snake);
-        }
+        
 
         // Countdown Timer
         const targetDate = new Date('June 4, 2026 00:07:00').getTime();
